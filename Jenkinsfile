@@ -16,12 +16,10 @@ pipeline {
         stage('creating tomcat image Tomcat') {
             steps {
                 script {
-                    withCredentials([usernamePassword(credentialsId: '0ae5f4c0-7981-4c07-a9d8-b35ee82c8029', passwordVariable: 'PASSWORD', usernameVariable: 'USERNAME')]) {
-
-                    sh '''cp -r /var/lib/jenkins/workspace/deploy/target/*.war .
-                    docker login
-                    docker build -t deepakumre/tomcat1 . 
-                    docker push deepakumre/tomcat1'''
+                    sh 'cp -r /var/lib/jenkins/workspace/deploy/target/*.war .'
+                    def dockerImage = docker.build("deepakumre/tomcat:latest")
+                    withDockerRegistry([credentialsId: "dockerid", url: ""]) {
+                        dockerImage.push()
                     }
                 }
             }
@@ -44,4 +42,5 @@ pipeline {
             }
         }
     }
-} //update
+}
+
