@@ -8,9 +8,7 @@ pipeline {
             }
         }
         stage('Build') {
-            agent {
-                label 'master'
-            }
+           
             steps {
                 echo "Building with Maven"
                 sh 'mvn clean package'
@@ -18,9 +16,7 @@ pipeline {
         }
     
         stage('creating tomcat image Tomcat') {
-            agent {
-                label 'master'
-            }
+           
             steps {
                 script {
                     sh '''cp -r /var/lib/jenkins/workspace/deploy/target/*.war .
@@ -31,9 +27,7 @@ pipeline {
             }
         }
         stage('build image on k8 ') {
-            agent {
-                label 'master'
-            }
+            
             steps {
                 script {
                     sh 'kubectl apply -f deployment.yaml'
@@ -41,9 +35,7 @@ pipeline {
             }
         }
         stage('getting info') {
-            agent {
-                label 'master'
-            }
+           
             steps {
                 script {
                     sh '''kubectl get pods -o wide 
