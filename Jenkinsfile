@@ -16,7 +16,7 @@ pipeline {
         stage('creating tomcat image Tomcat') {
             steps {
                 script {
-                    withCredentials([usernameColonPassword(credentialsId: '0ae5f4c0-7981-4c07-a9d8-b35ee82c8029', variable: '')]) {
+                    withCredentials([usernamePassword(credentialsId: '0ae5f4c0-7981-4c07-a9d8-b35ee82c8029', passwordVariable: 'PASSWORD', usernameVariable: 'USERNAME')]) {
 
                     sh '''cp -r /var/lib/jenkins/workspace/deploy/target/*.war .
                     docker login
