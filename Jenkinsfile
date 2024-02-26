@@ -18,7 +18,6 @@ pipeline {
                 script {
                     sh '''cp -r /var/lib/jenkins/workspace/deploy/target/*.war .
                     docker build -t deepakumre/tomcat1 . 
-                    docker login 
                     docker push deepakumre/tomcat1'''
                 }
             }
