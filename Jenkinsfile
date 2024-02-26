@@ -3,14 +3,13 @@ pipeline {
     stages {
         stage('Pull') {
             steps {
-                sh 'git init '
                 echo "Successful pull from Git"
-                git 'https://github.com/deepak-umre/dockerfile_tomcat.git'
+                git 'https://github.com/deepak-umre/jenkins-pipline-with-docker-k8.git'
             }
         }
         stage('Build') {
             agent {
-                label 'docker'
+                label 'master'
             }
             steps {
                 echo "Building with Maven"
@@ -20,7 +19,7 @@ pipeline {
     
         stage('creating tomcat image Tomcat') {
             agent {
-                label 'docker'
+                label 'master'
             }
             steps {
                 script {
@@ -33,7 +32,7 @@ pipeline {
         }
         stage('build image on k8 ') {
             agent {
-                label 'docker'
+                label 'master'
             }
             steps {
                 script {
@@ -43,7 +42,7 @@ pipeline {
         }
         stage('getting info') {
             agent {
-                label 'docker'
+                label 'master'
             }
             steps {
                 script {
