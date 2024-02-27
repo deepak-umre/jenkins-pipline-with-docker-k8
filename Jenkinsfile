@@ -17,7 +17,7 @@ pipeline {
             steps {
                 script {
                     sh 'cp -r /var/lib/jenkins/workspace/deploy/target/*.war .'
-                    def dockerImage = docker.build("deepakumre/tomcat:latest")
+                    def dockerImage = docker.build("deepakumre/tomcat1:latest")
                     withDockerRegistry([credentialsId: "dockerid", url: ""]) {
                         dockerImage.push()
                     }
